@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Dota_Counterpicks</string>
+    <string name="attack_type_melee">Melee</string>
+    <string name="attack_type_ranged">Ranged</string>
+    <string name="state_loading">Loading...</string>
+    <string name="search">Search</string>
+</resources>
