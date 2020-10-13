@@ -81,7 +81,6 @@ class HeroAdapter: RecyclerView.Adapter<HeroAdapter.ViewHolder>(), Filterable {
             }
 
             override fun publishResults(charSequence: CharSequence, filterResults: FilterResults) {
-                mHeroList = filterResults.values as MutableList<Hero>
 
 
                 notifyDataSetChanged()

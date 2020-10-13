@@ -15,6 +15,7 @@ class HeroRepositoryImpl( private val heroConverter: HeroConverterImpl) {
       return try{
           val   heroes = heroProvider.getHeroesList().await()
            GlobalScope.async {
+
                heroes.map { hero -> heroConverter.fromApiToUI(model = hero) }
            }
       } catch (e: Exception){

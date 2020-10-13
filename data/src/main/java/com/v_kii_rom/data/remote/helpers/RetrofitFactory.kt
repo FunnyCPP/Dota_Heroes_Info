@@ -5,8 +5,12 @@ import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFact
 import com.v_kii_rom.data.remote.services.HeroesService
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonConfiguration
+import kotlinx.serialization.json.nonstrict
+import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
+import okhttp3.internal.ignoreIoExceptions
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 
@@ -19,15 +23,18 @@ class RetrofitFactory {
             loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
 
             return OkHttpClient.Builder()
-                .addInterceptor(loggingInterceptor)
-                .build()
+                .addInterceptor(loggingInterceptor).
+                build()
         }
         @ExperimentalSerializationApi
         private fun getRetrofitClient (): Retrofit {
             return Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .client(getOkHttpInstance())
-                .addConverterFactory(Json.asConverterFactory(contentType = "application/json".toMediaType()))
+                .addConverterFactory(Json{
+                    isLenient = true
+                    ignoreUnknownKeys = true
+                }.asConverterFactory("application/json".toMediaType()))
                 .addCallAdapterFactory(CoroutineCallAdapterFactory())
                 .build()
         }

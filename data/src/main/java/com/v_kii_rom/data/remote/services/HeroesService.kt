@@ -5,6 +5,6 @@ import kotlinx.coroutines.Deferred
 import retrofit2.http.GET
 
 interface HeroesService {
-    @GET("./heroes")
+    @GET("./heroStats")
     fun getHeroes(): Deferred<List<HeroApi>>
 }
