@@ -7,6 +7,7 @@ import android.widget.Filter
 import android.widget.Filterable
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
 import com.v_kii_rom.domain.models.Hero
 import com.v_kii_rom.dota_counterpicks.R
@@ -45,16 +46,16 @@ class HeroAdapter: RecyclerView.Adapter<HeroAdapter.ViewHolder>(), Filterable {
         private val txtTitle: TextView = itemView.findViewById(R.id.txtHeroTitle)
         private val txtAttackType: TextView = itemView.findViewById(R.id.txtHeroAttackType)
         private val imgAvatar: ImageView = itemView.findViewById(R.id.imgAvatar)
+        private var i=0
+        var s:String =""
 
         fun bind(model: Hero) {
-            txtTitle.text = model.title
-            if(model.attackType == 0)
+            txtTitle.text = model.localized_name
+            while(i< model.roles.size)
             {
-                txtAttackType.text = itemView.context.getString(R.string.attack_type_melee)
-            }
-            else
-            {
-                txtAttackType.text = itemView.context.getString(R.string.attack_type_ranged)
+                s += model.roles[i] + " "
+                txtAttackType.text=s
+                i++
             }
         }
     }
@@ -67,7 +68,7 @@ class HeroAdapter: RecyclerView.Adapter<HeroAdapter.ViewHolder>(), Filterable {
                     val filteredList: MutableList<Hero> = ArrayList()
                     for (row in mHeroList) {
 
-                        if (row.title.toLowerCase()
+                        if (row.localized_name.toLowerCase()
                                 .contains(charString.toLowerCase())
                         ) {
                             filteredList.add(row)
