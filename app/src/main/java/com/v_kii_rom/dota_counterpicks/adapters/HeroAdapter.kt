@@ -9,8 +9,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.v_kii_rom.domain.models.Hero
 import com.v_kii_rom.dota_counterpicks.R
+import com.v_kii_rom.dota_counterpicks.activities.MainActivity
 import java.util.*
 
 class HeroAdapter: RecyclerView.Adapter<HeroAdapter.ViewHolder>(), Filterable {
@@ -44,19 +46,25 @@ class HeroAdapter: RecyclerView.Adapter<HeroAdapter.ViewHolder>(), Filterable {
     }
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         private val txtTitle: TextView = itemView.findViewById(R.id.txtHeroTitle)
-        private val txtAttackType: TextView = itemView.findViewById(R.id.txtHeroAttackType)
+        private val roles: TextView = itemView.findViewById(R.id.txtHeroAttackType)
         private val imgAvatar: ImageView = itemView.findViewById(R.id.imgAvatar)
         private var i=0
         var s:String =""
 
+
         fun bind(model: Hero) {
             txtTitle.text = model.localized_name
-            while(i< model.roles.size)
+            Glide.with(itemView).load("http://cdn.dota2.com"+model.icon).into(imgAvatar);
+            while(i< model.roles.size-1)
             {
-                s += model.roles[i] + " "
-                txtAttackType.text=s
+                s += model.roles[i] + ", "
+                roles.text=s
                 i++
             }
+            s+= model.roles[model.roles.size-1]
+            roles.text=s
+            i=0
+            s=""
         }
     }
    override fun getFilter(): Filter? {
