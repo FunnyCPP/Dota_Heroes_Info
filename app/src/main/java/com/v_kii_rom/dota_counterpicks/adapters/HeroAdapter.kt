@@ -15,7 +15,7 @@ import com.v_kii_rom.dota_counterpicks.R
 import com.v_kii_rom.dota_counterpicks.activities.MainActivity
 import java.util.*
 
-class HeroAdapter: RecyclerView.Adapter<HeroAdapter.ViewHolder>(), Filterable {
+class HeroAdapter(private val listener: (Hero) -> Unit) : RecyclerView.Adapter<HeroAdapter.ViewHolder>(), Filterable {
 
     private var mHeroList: MutableList<Hero> = LinkedList()
 
@@ -34,11 +34,13 @@ class HeroAdapter: RecyclerView.Adapter<HeroAdapter.ViewHolder>(), Filterable {
                 false
             )
         )
+
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-
         viewHolder.bind(model = mHeroList[position])
+        viewHolder.itemView.setOnClickListener{ listener(mHeroList[position])}
+
     }
 
     override fun getItemCount(): Int {
@@ -96,5 +98,8 @@ class HeroAdapter: RecyclerView.Adapter<HeroAdapter.ViewHolder>(), Filterable {
             }
         }
     }
+}
+interface CellClickListener {
+    fun onCellClickListener(data: Hero)
 }
 
