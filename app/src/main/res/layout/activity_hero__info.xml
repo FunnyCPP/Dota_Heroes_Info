@@ -164,4 +164,11 @@
         android:layout_marginTop="20sp"
         android:layout_toEndOf="@+id/imgAtt"
         android:text="TextView" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imgInt"
+        android:layout_marginTop="10sp" />
+
 </RelativeLayout>
