@@ -36,6 +36,7 @@ class Hero_Info:  MvpAppCompatActivity(),HeroListView, AbilityListView {
         id=localId
         setupAdapter()
         heroListPresenter.fetchHeroes()
+        abilityListPresenter.fetchAbilities()
 
 
     }
