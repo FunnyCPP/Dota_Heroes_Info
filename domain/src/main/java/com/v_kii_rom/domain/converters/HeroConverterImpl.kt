@@ -1,5 +1,6 @@
 package com.v_kii_rom.domain.converters
 
+import com.v_kii_rom.data.remote.models.AbilityApi
 import com.v_kii_rom.data.remote.models.HeroApi
 import com.v_kii_rom.domain.models.Hero
 
@@ -17,6 +18,6 @@ class HeroConverterImpl {
          attack_range =model.attack_range, projectile_speed = model.move_speed,
          attack_rate =model.attack_rate, move_speed= model.move_speed,
          turn_rate=model.turn_rate, cm_enabled=model.cm_enabled, legs = model.legs, pro_ban = model.pro_ban,
-            hero_id= model.hero_id, pro_win = model.pro_win ,pro_pick=model.pro_pick)
+            hero_id= model.hero_id, pro_win = model.pro_win ,pro_pick=model.pro_pick,)
     }
 }

@@ -1,21 +1,32 @@
 package com.v_kii_rom.dota_counterpicks.activities
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.v_kii_rom.domain.models.Ability
 import com.v_kii_rom.dota_counterpicks.R
 import com.v_kii_rom.domain.models.Hero
+import com.v_kii_rom.dota_counterpicks.adapters.AbilityAdapter
+import com.v_kii_rom.dota_counterpicks.adapters.HeroAdapter
+import com.v_kii_rom.dota_counterpicks.presenters.AbilityListPresenter
 import com.v_kii_rom.dota_counterpicks.presenters.HeroListPresenter
+import com.v_kii_rom.dota_counterpicks.views.AbilityListView
 import com.v_kii_rom.dota_counterpicks.views.HeroListView
+import kotlinx.android.synthetic.main.activity_hero__info.*
+import kotlinx.android.synthetic.main.fragment_hero_list.*
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
 
-class Hero_Info:  MvpAppCompatActivity(),HeroListView {
-
+class Hero_Info:  MvpAppCompatActivity(),HeroListView, AbilityListView {
+    private var  mAdapter = AbilityAdapter(){ item ->
+    };
     var id:Int=0;
     private val heroListPresenter by moxyPresenter { HeroListPresenter() }
+    private val abilityListPresenter by moxyPresenter { AbilityListPresenter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,9 +34,15 @@ class Hero_Info:  MvpAppCompatActivity(),HeroListView {
 
         val localId:Int= intent.getIntExtra("id",0)
         id=localId
-
+        setupAdapter()
         heroListPresenter.fetchHeroes()
 
+
+    }
+    private fun setupAdapter() {
+        val layoutManager = LinearLayoutManager(applicationContext, LinearLayoutManager.VERTICAL, false)
+        recyclerAbilityList.layoutManager = layoutManager
+        recyclerAbilityList.adapter = mAdapter
     }
     fun setData(position: Int, mHeroList: List<Hero>){
 
@@ -84,5 +101,14 @@ class Hero_Info:  MvpAppCompatActivity(),HeroListView {
 
 
     }
+
+    override fun presentAbilities(data: List<Ability>) {
+        mAdapter.setData(newAbilities = data)
+    }
+
+    override fun presentLoadingAbility() {
+        TODO("Not yet implemented")
+    }
+
 
 }

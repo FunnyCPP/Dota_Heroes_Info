@@ -8,6 +8,5 @@ import retrofit2.http.GET
 interface HeroesService {
     @GET("./heroStats")
     fun getHeroes(): Deferred<List<HeroApi>>
-    @GET("./constants/abilities")
-    fun getAbilities(): Deferred<List<AbilityApi>>
+
 }

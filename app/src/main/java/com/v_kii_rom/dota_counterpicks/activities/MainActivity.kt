@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.v_kii_rom.domain.models.Ability
 import com.v_kii_rom.dota_counterpicks.R
 import com.v_kii_rom.dota_counterpicks.adapters.HeroAdapter
 import com.v_kii_rom.domain.models.Hero
@@ -51,6 +52,8 @@ class MainActivity :  MvpAppCompatActivity(),HeroListView {
         txtHeroListLoading.visibility = View.VISIBLE
 
     }
+
+
 
 
 }

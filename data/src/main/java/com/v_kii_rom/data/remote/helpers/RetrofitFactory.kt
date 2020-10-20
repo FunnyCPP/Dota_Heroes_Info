@@ -2,6 +2,7 @@ package com.v_kii_rom.data.remote.helpers
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
+import com.v_kii_rom.data.remote.services.AbilityService
 import com.v_kii_rom.data.remote.services.HeroesService
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
@@ -40,6 +41,8 @@ class RetrofitFactory {
         }
         @ExperimentalSerializationApi
         fun getHeroesService(): HeroesService = RetrofitFactory.getRetrofitClient().create(HeroesService::class.java)
+        @ExperimentalSerializationApi
+        fun getAbilityService(): AbilityService = RetrofitFactory.getRetrofitClient().create(AbilityService::class.java)
 
     }
 }
