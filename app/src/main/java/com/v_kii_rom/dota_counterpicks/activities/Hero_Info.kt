@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.v_kii_rom.domain.models.Ability
@@ -17,6 +18,7 @@ import com.v_kii_rom.dota_counterpicks.presenters.HeroListPresenter
 import com.v_kii_rom.dota_counterpicks.views.AbilityListView
 import com.v_kii_rom.dota_counterpicks.views.HeroListView
 import kotlinx.android.synthetic.main.activity_hero__info.*
+import kotlinx.android.synthetic.main.cell_ability.*
 import kotlinx.android.synthetic.main.fragment_hero_list.*
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
@@ -36,7 +38,7 @@ class Hero_Info:  MvpAppCompatActivity(),HeroListView, AbilityListView {
         id=localId
         setupAdapter()
         heroListPresenter.fetchHeroes()
-        abilityListPresenter.fetchAbilities()
+
 
 
     }
@@ -103,8 +105,10 @@ class Hero_Info:  MvpAppCompatActivity(),HeroListView, AbilityListView {
 
     }
 
+
     override fun presentAbilities(data: List<Ability>) {
         mAdapter.setData(newAbilities = data)
+        Toast.makeText(applicationContext,data[3].dName, Toast.LENGTH_LONG).show()
     }
 
     override fun presentLoadingAbility() {

@@ -19,8 +19,7 @@ import java.lang.Exception
 class HeroListPresenter: MvpPresenter<HeroListView>() {
 
     private val heroRepositoryImpl = HeroRepositoryImpl(heroConverter = HeroConverterImpl())
-    private val abilityRepositoryImpl =
-        AbilityRepositoryImpl(abilityConverter = AbilityConverterImpl())
+    private val abilityRepositoryImpl = AbilityRepositoryImpl(abilityConverter = AbilityConverterImpl())
 
     fun fetchHeroes() {
         viewState.presentLoading()
@@ -29,6 +28,17 @@ class HeroListPresenter: MvpPresenter<HeroListView>() {
                 val heroes = heroRepositoryImpl.fetchHeroes().await()
                 withContext(Dispatchers.Main) {
                     viewState.presentHeroes(data = heroes)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+        }
+        GlobalScope.launch(Dispatchers.IO) {
+            try {
+                val abilities = abilityRepositoryImpl.fetchAbilities().await()
+                withContext(Dispatchers.Main) {
+                    viewState.presentAbilities(data = abilities)
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

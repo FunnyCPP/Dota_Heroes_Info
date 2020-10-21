@@ -53,7 +53,9 @@ class MainActivity :  MvpAppCompatActivity(),HeroListView {
 
     }
 
-
+    override fun presentAbilities(data: List<Ability>) {
+        TODO("Not yet implemented")
+    }
 
 
 }
