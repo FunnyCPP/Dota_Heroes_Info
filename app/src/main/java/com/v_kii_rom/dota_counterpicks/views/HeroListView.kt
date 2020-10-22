@@ -9,6 +9,4 @@ interface HeroListView: MvpView {
     fun presentHeroes(data: List<Hero>)
     @AddToEndSingle
     fun presentLoading()
-    @AddToEndSingle
-    fun presentAbilities(data: List<Ability>)
 }

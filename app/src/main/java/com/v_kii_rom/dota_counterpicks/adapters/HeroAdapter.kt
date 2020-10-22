@@ -15,7 +15,7 @@ import com.v_kii_rom.dota_counterpicks.R
 import com.v_kii_rom.dota_counterpicks.activities.MainActivity
 import java.util.*
 
-class HeroAdapter(private val listener: (Hero) -> Unit) : RecyclerView.Adapter<HeroAdapter.ViewHolder>(), Filterable {
+class HeroAdapter(private val listener: (Int) -> Unit) : RecyclerView.Adapter<HeroAdapter.ViewHolder>(), Filterable {
 
     private var mHeroList: MutableList<Hero> = LinkedList()
 
@@ -39,7 +39,7 @@ class HeroAdapter(private val listener: (Hero) -> Unit) : RecyclerView.Adapter<H
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         viewHolder.bind(model = mHeroList[position])
-        viewHolder.itemView.setOnClickListener{ listener(mHeroList[position])}
+        viewHolder.itemView.setOnClickListener{ listener(position)}
 
     }
 
@@ -50,23 +50,15 @@ class HeroAdapter(private val listener: (Hero) -> Unit) : RecyclerView.Adapter<H
         private val txtTitle: TextView = itemView.findViewById(R.id.txtHeroTitle)
         private val roles: TextView = itemView.findViewById(R.id.txtHeroAttackType)
         private val imgAvatar: ImageView = itemView.findViewById(R.id.imgAvatar)
-        private var i=0
-        var s:String =""
 
 
         fun bind(model: Hero) {
-            txtTitle.text = model.localized_name
-            Glide.with(itemView).load("http://cdn.dota2.com"+model.icon).into(imgAvatar);
-            while(i< model.roles.size-1)
-            {
-                s += model.roles[i] + ", "
-                roles.text=s
-                i++
-            }
-            s+= model.roles[model.roles.size-1]
-            roles.text=s
-            i=0
-            s=""
+            txtTitle.text = model.name
+            Glide.with(itemView).load("https://raw.githubusercontent.com/kriskate/dota-data/master/assets/images/heroes/icons/"+model.tag+".png").into(imgAvatar);
+
+
+            roles.text=model.attributes.Role
+
         }
     }
    override fun getFilter(): Filter? {
@@ -78,7 +70,7 @@ class HeroAdapter(private val listener: (Hero) -> Unit) : RecyclerView.Adapter<H
                     val filteredList: MutableList<Hero> = ArrayList()
                     for (row in mHeroList) {
 
-                        if (row.localized_name.toLowerCase()
+                        if (row.name.toLowerCase()
                                 .contains(charString.toLowerCase())
                         ) {
                             filteredList.add(row)

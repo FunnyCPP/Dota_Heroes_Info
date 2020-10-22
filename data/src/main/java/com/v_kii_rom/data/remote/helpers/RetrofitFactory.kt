@@ -18,7 +18,7 @@ import retrofit2.Retrofit
 class RetrofitFactory {
 
     companion object{
-        private const val baseUrl = "https://api.opendota.com/api/"
+        private const val baseUrl = "https://raw.githubusercontent.com/kriskate/dota-data/master/data/"
         private fun getOkHttpInstance(): OkHttpClient {
             val loggingInterceptor = HttpLoggingInterceptor()
             loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY

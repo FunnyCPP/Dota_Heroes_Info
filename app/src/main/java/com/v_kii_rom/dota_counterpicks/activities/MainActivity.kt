@@ -21,7 +21,7 @@ import moxy.ktx.moxyPresenter
 class MainActivity :  MvpAppCompatActivity(),HeroListView {
     private var  mAdapter = HeroAdapter(){ item ->
         val intent = Intent(this, Hero_Info::class.java)
-        intent.putExtra("id", item.hero_id)
+        intent.putExtra("id", item)
         startActivity(intent)
     };
 
@@ -53,9 +53,6 @@ class MainActivity :  MvpAppCompatActivity(),HeroListView {
 
     }
 
-    override fun presentAbilities(data: List<Ability>) {
-        TODO("Not yet implemented")
-    }
 
 
 }

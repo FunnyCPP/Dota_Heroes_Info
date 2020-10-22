@@ -1,23 +1,79 @@
 package com.v_kii_rom.domain.converters
 
-import com.v_kii_rom.data.remote.models.AbilityApi
+import com.v_kii_rom.data.remote.models.AbilitiesApi
+import com.v_kii_rom.data.remote.models.AttributesApi
 import com.v_kii_rom.data.remote.models.HeroApi
+import com.v_kii_rom.data.remote.models.TalentsApi
+import com.v_kii_rom.domain.models.Ability
+import com.v_kii_rom.domain.models.Attribut
 import com.v_kii_rom.domain.models.Hero
+import com.v_kii_rom.domain.models.Talent
+
 
 class HeroConverterImpl {
     fun fromApiToUI(model: HeroApi): Hero{
-        return Hero(id =  model.id,name = model.name, localized_name = model.localized_name,
-         primary_attr = model.primary_attr, attack_type = model.attack_type, roles = model.roles,
-         img = model.img, icon = model.icon,
-         base_health = model.base_health,
-         base_mana = model.base_mana, base_mana_regen= model.base_mana_regen,
-         base_armor= model.base_armor, base_mr= model.base_mr,
-         base_attack_min = model.base_attack_min, base_attack_max = model.base_attack_max,
-         base_str = model.base_str, base_agi = model.base_agi, base_int =model.base_int,
-         str_gain = model.str_gain, agi_gain = model.agi_gain, int_gain= model.int_gain,
-         attack_range =model.attack_range, projectile_speed = model.move_speed,
-         attack_rate =model.attack_rate, move_speed= model.move_speed,
-         turn_rate=model.turn_rate, cm_enabled=model.cm_enabled, legs = model.legs, pro_ban = model.pro_ban,
-            hero_id= model.hero_id, pro_win = model.pro_win ,pro_pick=model.pro_pick,)
+        return Hero(
+            tag = model.tag,
+            name=model.name,
+            bio= model.bio,
+            hype= model.hype,
+            abilities= model.abilities.map{ ability -> fromAbilitiestoAbility(model = ability)},
+            //talents = model.talents.map { talent -> fromTalentsToTalent(model = talent) } ,
+            attributes = fromAttributesToAttribut(model = model.attributes),
+            abilities_aghs= model.abilities_aghs.map{ ability -> fromAbilitiestoAbility(model = ability)},
+            abilities_special=model.abilities_special.map{ ability -> fromAbilitiestoAbility(model = ability)},
+            abilities_hidden = model.abilities_hidden.map{ ability -> fromAbilitiestoAbility(model = ability)})
     }
+    fun fromAbilitiestoAbility(model: AbilitiesApi): Ability {
+        return Ability(
+            tag= model?.tag,
+         name = model?.name,
+         affects = model?.affects,
+         description= model?.description,
+         notes=  model.notes,
+         attrib= model?.attrib,
+         cooldawn= model?.cooldawn,
+         manacost= model?.manacost,
+         lore=model?.lore,
+         HasScepterUpgrade= model?.HasScepterUpgrade
+        )
+    }
+    fun fromAttributesToAttribut(model: AttributesApi): Attribut{
+        return Attribut(
+            AttributePrimary = model.AttributePrimary,
+            AttributeBaseAgility = model.AttributeBaseAgility,
+            AttributeAgilityGain = model.AttributeAgilityGain,
+            AttributeBaseStrength = model.AttributeBaseStrength,
+            AttributeStrengthGain = model.AttributeStrengthGain,
+            AttributeBaseIntelligence = model.AttributeBaseIntelligence,
+            AttributeIntelligenceGain = model.AttributeIntelligenceGain,
+            ArmorPhysical = model.ArmorPhysical,
+            MagicalResistance = model.MagicalResistance,
+            StatusHealth = model.StatusHealth,
+            StatusHealthRegen = model.StatusHealthRegen,
+            StatusMana = model.StatusMana,
+            StatusManaRegen = model.StatusManaRegen,
+            MovementSpeed = model.MovementSpeed,
+            MovementTurnRate = model.MovementTurnRate,
+            VisionDaytimeRange = model.VisionDaytimeRange,
+            VisionNighttimeRange = model.VisionNighttimeRange,
+            AttackCapabilities = model.AttackCapabilities,
+            AttackDamageMin = model.AttackDamageMin,
+            AttackDamageMax = model.AttackDamageMax,
+            AttackRate = model.AttackRate,
+            AttackAnimationPoint = model.AttackAnimationPoint,
+            AttackAcquisitionRange = model.AttackAcquisitionRange,
+            AttackRange = model.AttackRange,
+            ProjectileSpeed = model.ProjectileSpeed,
+            Role = model.Role,
+            Rolelevels = model.Rolelevels,
+            Complexity = model.Complexity,
+            Team = model.Team,
+            HeroId = model.HeroId
+        )
+    }
+   // fun fromTalentsToTalent(model: TalentsApi): Talent {
+   //     return Talent(tag = model.tag, name = model.name, position = model.position)
+
+  //  }
 }
