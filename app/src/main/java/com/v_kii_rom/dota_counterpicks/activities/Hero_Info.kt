@@ -8,23 +8,27 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.v_kii_rom.dota_counterpicks.R
 import com.v_kii_rom.domain.models.Hero
+import com.v_kii_rom.dota_counterpicks.adapters.AbilityAdapter
+import com.v_kii_rom.dota_counterpicks.adapters.HeroAdapter
 
 import com.v_kii_rom.dota_counterpicks.presenters.HeroListPresenter
 import com.v_kii_rom.dota_counterpicks.views.HeroListView
 import kotlinx.android.synthetic.main.activity_hero__info.*
+import kotlinx.android.synthetic.main.fragment_hero_list.*
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
 
 class Hero_Info:  MvpAppCompatActivity(),HeroListView {
     var position:Int=0;
     private val heroListPresenter by moxyPresenter { HeroListPresenter() }
+    val mAdapter=  AbilityAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hero__info)
 
         val localPosition:Int= intent.getIntExtra("id",0)
-        position-localPosition
+        position=localPosition
         setupAdapter()
         heroListPresenter.fetchHeroes()
 
@@ -34,6 +38,7 @@ class Hero_Info:  MvpAppCompatActivity(),HeroListView {
     private fun setupAdapter() {
         val layoutManager = LinearLayoutManager(applicationContext, LinearLayoutManager.VERTICAL, false)
         recyclerAbilityList.layoutManager = layoutManager
+        recyclerAbilityList.adapter = mAdapter
 
     }
     fun setData(position: Int, mHeroList: List<Hero>){
@@ -75,6 +80,7 @@ class Hero_Info:  MvpAppCompatActivity(),HeroListView {
 
     override fun presentHeroes(data: List<Hero>) {
         setData(position,data)
+        mAdapter.setData(data[position].abilities)
     }
 
     override fun presentLoading() {

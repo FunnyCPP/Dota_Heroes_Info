@@ -25,14 +25,27 @@ class HeroConverterImpl {
             abilities_hidden = model.abilities_hidden.map{ ability -> fromAbilitiestoAbility(model = ability)})
     }
     fun fromAbilitiestoAbility(model: AbilitiesApi): Ability {
+        var s: String
+        s=model?.description.replace("<br/>","")
+        s=s.replace("<font color=\"#bdc3c7\">"," ")
+        s=s.replace("</font>","")
+        s=s.replace("<font color=\"#2ecc71\">"," ")
+        s=s.replace("<br />","")
+        s=s.replace("<font color=\"#e74c3c\">"," ")
+        s=s.replace("\\n"," ")
+        s=s.replace("%%","%")
+        s=s.replace("<font color=\"#3498db\">"," ")
+        s=s.replace("<font color=\\\"#ff0000\\\">", " ")
+        s=s.replace("<font color=\\\"#9acd32\\\">", " ")
+        s=s.replace("<font color=\\\"#87ceeb\\\">"," ")
         return Ability(
             tag= model?.tag,
          name = model?.name,
          affects = model?.affects,
-         description= model?.description,
+         description= s,
          notes=  model.notes,
          attrib= model?.attrib,
-         cooldawn= model?.cooldawn,
+         cooldown= model?.cooldown,
          manacost= model?.manacost,
          lore=model?.lore,
          HasScepterUpgrade= model?.HasScepterUpgrade
