@@ -6,7 +6,7 @@ import kotlinx.coroutines.Deferred
 
 class HeroProviderImpl {
 
-    fun getHeroesList(): Deferred<List<HeroApi>> {
+    fun getHeroesList(): Deferred<MutableList<HeroApi>> {
         return RetrofitFactory.getHeroesService().getHeroes()
     }
 

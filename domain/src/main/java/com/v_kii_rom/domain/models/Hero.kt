@@ -5,7 +5,7 @@ import com.v_kii_rom.data.remote.models.AttributesApi
 import com.v_kii_rom.data.remote.models.TalentsApi
 
 data class Hero(val tag: String="",
-                val name: String="",
+                var name: String="",
                 val bio: String="",
                 val hype: String="",
                 val abilities: List<Ability>,

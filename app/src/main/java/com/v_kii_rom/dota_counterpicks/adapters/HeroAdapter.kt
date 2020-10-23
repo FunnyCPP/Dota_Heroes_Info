@@ -3,10 +3,7 @@ package com.v_kii_rom.dota_counterpicks.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Filter
-import android.widget.Filterable
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -18,13 +15,25 @@ import java.util.*
 class HeroAdapter(private val listener: (Int) -> Unit) : RecyclerView.Adapter<HeroAdapter.ViewHolder>(), Filterable {
 
     private var mHeroList: MutableList<Hero> = LinkedList()
+    var editText: String = ""
 
-    fun setData(newHeroes: List<Hero>)
-    {
+    fun setData(newHeroes: List<Hero>, localEditText: String) {
+        var filteredList: MutableList<Hero> = LinkedList()
+        editText = localEditText
         mHeroList.clear()
-        mHeroList.addAll(newHeroes)
-        notifyDataSetChanged()
-    }
+
+
+        for(row in newHeroes){
+
+            if (row.name.toLowerCase().contains(editText.toLowerCase()) || row.attributes.Role.toLowerCase().contains(editText.toLowerCase())) {
+                filteredList.add(row)
+            }
+
+        }
+        mHeroList.addAll(filteredList)
+    notifyDataSetChanged()
+}
+
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -38,8 +47,8 @@ class HeroAdapter(private val listener: (Int) -> Unit) : RecyclerView.Adapter<He
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        viewHolder.bind(model = mHeroList[position])
-        viewHolder.itemView.setOnClickListener{ listener(position)}
+                viewHolder.bind(model = mHeroList[position])
+                viewHolder.itemView.setOnClickListener { listener(position) }
 
     }
 

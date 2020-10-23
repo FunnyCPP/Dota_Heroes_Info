@@ -6,6 +6,6 @@ import retrofit2.http.GET
 
 interface HeroesService {
     @GET("./english/heroes.json")
-    fun getHeroes(): Deferred<List<HeroApi>>
+    fun getHeroes(): Deferred<MutableList<HeroApi>>
 
 }
