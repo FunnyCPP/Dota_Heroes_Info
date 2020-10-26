@@ -35,7 +35,7 @@ class RetrofitFactory {
                 .build()
         }
         @ExperimentalSerializationApi
-        fun getHeroesService(): HeroesService = RetrofitFactory.getRetrofitClient().create(HeroesService::class.java)
+        fun getHeroesService(): HeroesService = getRetrofitClient().create(HeroesService::class.java)
 
 
     }

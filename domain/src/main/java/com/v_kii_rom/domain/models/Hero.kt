@@ -1,8 +1,6 @@
 package com.v_kii_rom.domain.models
 
-import com.v_kii_rom.data.remote.models.AbilitiesApi
-import com.v_kii_rom.data.remote.models.AttributesApi
-import com.v_kii_rom.data.remote.models.TalentsApi
+
 
 data class Hero(val tag: String="",
                 var name: String="",

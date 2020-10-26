@@ -1,6 +1,6 @@
 package com.v_kii_rom.dota_counterpicks.views
 
-import com.v_kii_rom.domain.models.Ability
+
 import com.v_kii_rom.domain.models.Hero
 import moxy.MvpView
 import moxy.viewstate.strategy.alias.AddToEndSingle

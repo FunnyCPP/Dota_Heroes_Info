@@ -3,7 +3,6 @@ package com.v_kii_rom.domain.repositories.implementations
 import com.v_kii_rom.data.remote.providers.HeroProviderImpl
 import com.v_kii_rom.domain.converters.HeroConverterImpl
 import com.v_kii_rom.domain.models.Hero
-import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import java.lang.Exception
@@ -11,15 +10,16 @@ import java.lang.Exception
 class HeroRepositoryImpl( private val heroConverter: HeroConverterImpl) {
 
     private val heroProvider: HeroProviderImpl  = HeroProviderImpl()
-    suspend fun fetchHeroes(): Deferred<List<Hero>> {
+    @Suppress("EXPERIMENTAL_API_USAGE")
+    suspend fun fetchHeroes(): List<Hero> {
       return try{
           val   heroes = heroProvider.getHeroesList().await()
-           GlobalScope.async {
+          GlobalScope.async {
 
-               heroes.map { hero -> heroConverter.fromApiToUI(model = hero) }
-           }
+              heroes.map { hero -> heroConverter.fromApiToUI(model = hero) }
+          }
       } catch (e: Exception){
-            GlobalScope.async { error(e) }
-      }
+          GlobalScope.async { error(e) }
+      }.await()
     }
 }

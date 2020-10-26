@@ -2,6 +2,14 @@
     <string name="app_name">Dota_Counterpicks</string>
     <string name="attack_type_melee">Melee</string>
     <string name="attack_type_ranged">Ranged</string>
-    <string name="state_loading">Loading...</string>
+    <string name="state_loading">Loading…</string>
     <string name="search">Search</string>
+    <string name="speed_icon">Speed Icon</string>
+    <string name="armor_icon">Armor icon</string>
+    <string name="hero_image">Hero image</string>
+    <string name="strength_icon">Strength icon</string>
+    <string name="agillity_icon">Agillity icon</string>
+    <string name="intelligent_icon">Intelligent icon</string>
+    <string name="attack_icon">Attack icon</string>
+    <string name="hero_icon">Hero icon</string>
 </resources>

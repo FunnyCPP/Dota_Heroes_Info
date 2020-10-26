@@ -3,11 +3,10 @@ package com.v_kii_rom.domain.converters
 import com.v_kii_rom.data.remote.models.AbilitiesApi
 import com.v_kii_rom.data.remote.models.AttributesApi
 import com.v_kii_rom.data.remote.models.HeroApi
-import com.v_kii_rom.data.remote.models.TalentsApi
 import com.v_kii_rom.domain.models.Ability
 import com.v_kii_rom.domain.models.Attribut
 import com.v_kii_rom.domain.models.Hero
-import com.v_kii_rom.domain.models.Talent
+
 
 
 class HeroConverterImpl {
@@ -24,9 +23,8 @@ class HeroConverterImpl {
             abilities_special=model.abilities_special.map{ ability -> fromAbilitiestoAbility(model = ability)},
             abilities_hidden = model.abilities_hidden.map{ ability -> fromAbilitiestoAbility(model = ability)})
     }
-    fun fromAbilitiestoAbility(model: AbilitiesApi): Ability {
-        var s: String
-        s=model?.description.replace("<br/>","")
+    private fun fromAbilitiestoAbility(model: AbilitiesApi): Ability {
+        var s: String = model.description.replace("<br/>","")
         s=s.replace("<font color=\"#bdc3c7\">"," ")
         s=s.replace("</font>","")
         s=s.replace("<font color=\"#2ecc71\">"," ")
@@ -39,19 +37,19 @@ class HeroConverterImpl {
         s=s.replace("<font color=\\\"#9acd32\\\">", " ")
         s=s.replace("<font color=\\\"#87ceeb\\\">"," ")
         return Ability(
-            tag= model?.tag,
-         name = model?.name,
-         affects = model?.affects,
+            tag= model.tag,
+         name = model.name,
+         affects = model.affects,
          description= s,
          notes=  model.notes,
-         attrib= model?.attrib,
-         cooldown= model?.cooldown,
-         manacost= model?.manacost,
-         lore=model?.lore,
-         HasScepterUpgrade= model?.HasScepterUpgrade
+         attrib= model.attrib,
+         cooldown= model.cooldown,
+         manacost= model.manacost,
+         lore=model.lore,
+         HasScepterUpgrade= model.HasScepterUpgrade
         )
     }
-    fun fromAttributesToAttribut(model: AttributesApi): Attribut{
+    private fun fromAttributesToAttribut(model: AttributesApi): Attribut{
         return Attribut(
             AttributePrimary = model.AttributePrimary,
             AttributeBaseAgility = model.AttributeBaseAgility,

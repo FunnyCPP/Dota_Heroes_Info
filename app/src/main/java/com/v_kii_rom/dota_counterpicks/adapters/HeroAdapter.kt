@@ -4,28 +4,28 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.v_kii_rom.domain.models.Hero
 import com.v_kii_rom.dota_counterpicks.R
-import com.v_kii_rom.dota_counterpicks.activities.MainActivity
 import java.util.*
 
-class HeroAdapter(private val listener: (Int) -> Unit) : RecyclerView.Adapter<HeroAdapter.ViewHolder>(), Filterable {
+class HeroAdapter(private val listener: (Int) -> Unit) : RecyclerView.Adapter<HeroAdapter.ViewHolder>() {
 
     private var mHeroList: MutableList<Hero> = LinkedList()
-    var editText: String = ""
+    private var editText: String = ""
 
     fun setData(newHeroes: List<Hero>, localEditText: String) {
-        var filteredList: MutableList<Hero> = LinkedList()
+        val filteredList: MutableList<Hero> = LinkedList()
         editText = localEditText
         mHeroList.clear()
 
 
         for(row in newHeroes){
 
-            if (row.name.toLowerCase().contains(editText.toLowerCase()) || row.attributes.Role.toLowerCase().contains(editText.toLowerCase())) {
+            if (row.name.toLowerCase(Locale.ROOT).contains(editText.toLowerCase(Locale.ROOT)) ||
+                row.attributes.Role.toLowerCase(Locale.ROOT).contains(editText.toLowerCase(Locale.ROOT))
+            ) {
                 filteredList.add(row)
             }
 
@@ -63,44 +63,13 @@ class HeroAdapter(private val listener: (Int) -> Unit) : RecyclerView.Adapter<He
 
         fun bind(model: Hero) {
             txtTitle.text = model.name
-            Glide.with(itemView).load("https://raw.githubusercontent.com/kriskate/dota-data/master/assets/images/heroes/icons/"+model.tag+".png").into(imgAvatar);
+            Glide.with(itemView).load("https://raw.githubusercontent.com/kriskate/dota-data/master/assets/images/heroes/icons/"+model.tag+".png").into(imgAvatar)
 
 
             roles.text=model.attributes.Role
 
         }
     }
-   override fun getFilter(): Filter? {
-        return object : Filter() {
-            override fun performFiltering(charSequence: CharSequence): FilterResults {
-                val charString = charSequence.toString()
-                if (charString.isEmpty()) {
-                } else {
-                    val filteredList: MutableList<Hero> = ArrayList()
-                    for (row in mHeroList) {
 
-                        if (row.name.toLowerCase()
-                                .contains(charString.toLowerCase())
-                        ) {
-                            filteredList.add(row)
-                        }
-                    }
-                    mHeroList = filteredList
-                }
-                val filterResults = FilterResults()
-                filterResults.values = mHeroList
-                return filterResults
-            }
-
-            override fun publishResults(charSequence: CharSequence, filterResults: FilterResults) {
-
-
-                notifyDataSetChanged()
-            }
-        }
-    }
-}
-interface CellClickListener {
-    fun onCellClickListener(data: Hero)
 }
 

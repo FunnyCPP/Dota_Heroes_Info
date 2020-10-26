@@ -20,7 +20,7 @@ class HeroListPresenter: MvpPresenter<HeroListView>() {
         viewState.presentLoading()
         GlobalScope.launch(Dispatchers.IO) {
             try {
-                val heroes = heroRepositoryImpl.fetchHeroes().await()
+                val heroes = heroRepositoryImpl.fetchHeroes()
                 withContext(Dispatchers.Main) {
                     viewState.presentHeroes(data = heroes)
                 }
