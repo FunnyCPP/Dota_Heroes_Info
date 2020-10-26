@@ -17,29 +17,30 @@
         android:id="@+id/editSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5sp"
         android:autofillHints=""
         android:ems="10"
+        android:gravity="start"
         android:hint="@string/search"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:visibility="gone" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerHeroList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="5sp"
         android:layoutAnimation="@anim/layout_animation">
 
     </androidx.recyclerview.widget.RecyclerView>
+
   </LinearLayout>
 
-  <TextView
-      android:id="@+id/txtHeroListLoading"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center"
-      android:text="@string/state_loading"
-      android:textColor="#000000"
-      android:textSize="32sp" />
+  <ProgressBar
+      android:id="@+id/progressBar"
+      style="@style/Widget.AppCompat.ProgressBar"
+      android:layout_width="100sp"
+      android:layout_height="100sp"
+      android:layout_gravity="center" />
 
 
 </FrameLayout>
