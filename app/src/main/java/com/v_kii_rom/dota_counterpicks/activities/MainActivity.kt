@@ -62,9 +62,10 @@ class MainActivity :  MvpAppCompatActivity(),HeroListView {
     }
 
     override fun presentHeroes(data: List<Hero>) {
+        mAdapter.setData(newHeroes = data, editSearch.text.toString())
         recyclerHeroList.visibility = View.VISIBLE
         txtHeroListLoading.visibility = View.GONE
-        mAdapter.setData(newHeroes = data, editSearch.text.toString())
+
     }
 
     override fun presentLoading() {
