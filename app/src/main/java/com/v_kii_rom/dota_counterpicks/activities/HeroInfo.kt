@@ -2,6 +2,7 @@ package com.v_kii_rom.dota_counterpicks.activities
 
 
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,6 +13,7 @@ import com.v_kii_rom.dota_counterpicks.adapters.AbilityAdapter
 import com.v_kii_rom.dota_counterpicks.presenters.HeroListPresenter
 import com.v_kii_rom.dota_counterpicks.views.HeroListView
 import kotlinx.android.synthetic.main.activity_hero__info.*
+import kotlinx.android.synthetic.main.activity_main.*
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
 
@@ -76,10 +78,12 @@ class HeroInfo:  MvpAppCompatActivity(),HeroListView {
     override fun presentHeroes(data: List<Hero>) {
         setData(position,data)
         mAdapter.setData(data[position].abilities)
+        relativeLayoutAbillities.visibility=View.VISIBLE
+        recyclerAbilityList.visibility = View.VISIBLE
+        progressBar1.visibility = View.GONE
     }
 
     override fun presentLoading() {
-
 
     }
 
