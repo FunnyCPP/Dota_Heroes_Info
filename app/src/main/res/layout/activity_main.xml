@@ -29,6 +29,7 @@
         android:id="@+id/recyclerHeroList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/layout_bg"
         android:layoutAnimation="@anim/layout_animation">
 
     </androidx.recyclerview.widget.RecyclerView>
