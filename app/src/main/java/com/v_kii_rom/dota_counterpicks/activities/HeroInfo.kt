@@ -13,12 +13,11 @@ import com.v_kii_rom.dota_counterpicks.adapters.AbilityAdapter
 import com.v_kii_rom.dota_counterpicks.presenters.HeroListPresenter
 import com.v_kii_rom.dota_counterpicks.views.HeroListView
 import kotlinx.android.synthetic.main.activity_hero__info.*
-import kotlinx.android.synthetic.main.activity_main.*
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
 
 class HeroInfo:  MvpAppCompatActivity(),HeroListView {
-    private var position:Int=0
+    private var tag=""
     private val heroListPresenter by moxyPresenter { HeroListPresenter() }
     private val mAdapter=  AbilityAdapter()
 
@@ -26,8 +25,8 @@ class HeroInfo:  MvpAppCompatActivity(),HeroListView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hero__info)
 
-        val localPosition:Int= intent.getIntExtra("id",0)
-        position=localPosition
+        val localTag= intent.getStringExtra("id")
+        tag=localTag.toString()
         setupAdapter()
         heroListPresenter.fetchHeroes()
 
@@ -76,6 +75,16 @@ class HeroInfo:  MvpAppCompatActivity(),HeroListView {
 
 
     override fun presentHeroes(data: List<Hero>) {
+        var position=0
+        var i=0
+        for(item in data)
+        {
+            if(item.tag==tag)
+            {
+                position=i
+            }
+            i++
+        }
         setData(position,data)
         mAdapter.setData(data[position].abilities)
         relativeLayoutAbillities.visibility=View.VISIBLE

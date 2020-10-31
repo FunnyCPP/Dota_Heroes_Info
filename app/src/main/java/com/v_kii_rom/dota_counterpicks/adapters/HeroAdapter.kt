@@ -10,7 +10,7 @@ import com.v_kii_rom.domain.models.Hero
 import com.v_kii_rom.dota_counterpicks.R
 import java.util.*
 
-class HeroAdapter(private val listener: (Int) -> Unit) : RecyclerView.Adapter<HeroAdapter.ViewHolder>() {
+class HeroAdapter(private val listener: (String) -> Unit) : RecyclerView.Adapter<HeroAdapter.ViewHolder>() {
 
     private var mHeroList: MutableList<Hero> = LinkedList()
     private var editText: String = ""
@@ -20,17 +20,27 @@ class HeroAdapter(private val listener: (Int) -> Unit) : RecyclerView.Adapter<He
         editText = localEditText
         mHeroList.clear()
 
+        for(row in newHeroes){
+
+            if (row.name.toLowerCase(Locale.ROOT).startsWith(editText.toLowerCase(Locale.ROOT))
+            ) {
+                filteredList.add(row)
+            }
+        }
 
         for(row in newHeroes){
 
-            if (row.name.toLowerCase(Locale.ROOT).contains(editText.toLowerCase(Locale.ROOT)) ||
-                row.attributes.Role.toLowerCase(Locale.ROOT).contains(editText.toLowerCase(Locale.ROOT))
+            if ((row.name.toLowerCase(Locale.ROOT).contains(editText.toLowerCase(Locale.ROOT)) ||
+                row.attributes.Role.toLowerCase(Locale.ROOT).contains(editText.toLowerCase(Locale.ROOT)) )&& !row.name.toLowerCase(Locale.ROOT).startsWith(editText.toLowerCase(Locale.ROOT) )
             ) {
                 filteredList.add(row)
             }
 
         }
+
         mHeroList.addAll(filteredList)
+        if(localEditText=="")
+            mHeroList= mHeroList.sortedBy { it.name }.toMutableList()
     notifyDataSetChanged()
 }
 
@@ -48,7 +58,7 @@ class HeroAdapter(private val listener: (Int) -> Unit) : RecyclerView.Adapter<He
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
                 viewHolder.bind(model = mHeroList[position])
-                viewHolder.itemView.setOnClickListener { listener(position) }
+                viewHolder.itemView.setOnClickListener { listener(mHeroList[position].tag) }
 
     }
 
