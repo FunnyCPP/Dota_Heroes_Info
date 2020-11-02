@@ -56,6 +56,8 @@ class HeroInfo:  MvpAppCompatActivity(),HeroListView {
         val imgAtt=findViewById<ImageView>(R.id.imgAtt)
         val imgArm=findViewById<ImageView>(R.id.imgArm)
         val imgSpeed=findViewById<ImageView>(R.id.imgSpeed)
+        val txtHealth=findViewById<TextView>(R.id.txtHealth)
+        val txtMana=findViewById<TextView>(R.id.txtMana)
         txtName.text =mHeroList[position].name
         Glide.with(applicationContext).load("https://raw.githubusercontent.com/kriskate/dota-data/master/assets/images/heroes/small/"+mHeroList[position].tag+".png").into(imgAva)
         Glide.with(applicationContext).load("https://pl.dotabuff.com/assets/hero_str-eac64b6191e66b593d7f1ac81bb262afed6565794d8f9014d66b0cbc99fa3d01.png").into(imgStrength)
@@ -71,6 +73,9 @@ class HeroInfo:  MvpAppCompatActivity(),HeroListView {
         txtAtt.text= (mHeroList[position].attributes.AttackDamageMin.toString()+" -  "+mHeroList[position].attributes.AttackDamageMax.toString())
         txtArm.text= mHeroList[position].attributes.ArmorPhysical.toString()
         txtSpeed.text= mHeroList[position].attributes.MovementSpeed.toString()
+        txtHealth.text=mHeroList[position].attributes.StatusHealth.toString()+" + "+mHeroList[position].attributes.StatusHealthRegen.toString()
+        txtMana.text=mHeroList[position].attributes.StatusMana.toString()+" + "+mHeroList[position].attributes.StatusManaRegen.toString()
+
     }
 
 
