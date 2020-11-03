@@ -1,6 +1,7 @@
 package com.v_kii_rom.dota_counterpicks.activities
 
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
@@ -39,6 +40,7 @@ class HeroInfo:  MvpAppCompatActivity(),HeroListView {
         recyclerAbilityList.adapter = mAdapter
 
     }
+    @SuppressLint("SetTextI18n")
     private fun setData(position: Int, mHeroList: List<Hero>){
 
         val txtName =findViewById<TextView>(R.id.text_name)

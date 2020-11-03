@@ -17,7 +17,6 @@
         android:id="@+id/editSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5sp"
         android:autofillHints=""
         android:ems="10"
         android:gravity="start"
