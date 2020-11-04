@@ -74,10 +74,35 @@ class HeroAdapter(private val listener: (String) -> Unit) : RecyclerView.Adapter
         fun bind(model: Hero) {
             txtTitle.text = model.name
             Glide.with(itemView).load("https://raw.githubusercontent.com/kriskate/dota-data/master/assets/images/heroes/icons/"+model.tag+".png").into(imgAvatar)
+            var i=0
+            var s=""
+            val rolesList: List<String>
+            rolesList=rolesToListOfRoles(model.attributes.Role)
+            while (i<rolesList.size)
+            {
+                s+= rolesList[i]+" "
+                i++
+            }
+            roles.text=s
 
-
-            roles.text=model.attributes.Role
-
+        }
+        fun rolesToListOfRoles(s: String): MutableList<String>
+        {
+            var editableRoles: String=""
+            var finalRoles: MutableList<String> = mutableListOf()
+            var i=0;
+            while(i <s.length)
+            {
+                if(s[i]==',')
+                {
+                    finalRoles.add(editableRoles)
+                    editableRoles=""
+                }
+                else
+                    editableRoles+=s[i]
+                i++
+            }
+            return finalRoles
         }
     }
 

@@ -42,7 +42,7 @@ class HeroInfo:  MvpAppCompatActivity(),HeroListView {
     }
     @SuppressLint("SetTextI18n")
     private fun setData(position: Int, mHeroList: List<Hero>){
-
+        val rolesList: List<String>
         val txtName =findViewById<TextView>(R.id.text_name)
         val txtRoles =findViewById<TextView>(R.id.text_roles)
         val imgAva=findViewById<ImageView>(R.id.img_ava)
@@ -60,6 +60,8 @@ class HeroInfo:  MvpAppCompatActivity(),HeroListView {
         val imgSpeed=findViewById<ImageView>(R.id.imgSpeed)
         val txtHealth=findViewById<TextView>(R.id.txtHealth)
         val txtMana=findViewById<TextView>(R.id.txtMana)
+        var i=0
+        var s=""
         txtName.text =mHeroList[position].name
         Glide.with(applicationContext).load("https://raw.githubusercontent.com/kriskate/dota-data/master/assets/images/heroes/small/"+mHeroList[position].tag+".png").into(imgAva)
         Glide.with(applicationContext).load("https://pl.dotabuff.com/assets/hero_str-eac64b6191e66b593d7f1ac81bb262afed6565794d8f9014d66b0cbc99fa3d01.png").into(imgStrength)
@@ -68,7 +70,14 @@ class HeroInfo:  MvpAppCompatActivity(),HeroListView {
         Glide.with(applicationContext).load("https://cdn.cloudflare.steamstatic.com/apps/dota2/images/heropedia/overviewicon_attack.png").into(imgAtt)
         Glide.with(applicationContext).load("https://cdn.cloudflare.steamstatic.com/apps/dota2/images/heropedia/overviewicon_defense.png").into(imgArm)
         Glide.with(applicationContext).load("https://cdn.cloudflare.steamstatic.com/apps/dota2/images/heropedia/overviewicon_speed.png").into(imgSpeed)
-        txtRoles.text=mHeroList[position].attributes.Role
+
+       rolesList=rolesToListOfRoles(mHeroList[position].attributes.Role)
+        while (i<rolesList.size)
+        {
+            s+= rolesList[i]+" "
+            i++
+        }
+        txtRoles.text=s
         txtStrength.text= (mHeroList[position].attributes.AttributeBaseStrength.toString()+" +  "+mHeroList[position].attributes.AttributeStrengthGain.toString())
         txtAgi.text= (mHeroList[position].attributes.AttributeBaseAgility.toString()+" +  "+mHeroList[position].attributes.AttributeAgilityGain.toString())
         txtInt.text= (mHeroList[position].attributes.AttributeBaseIntelligence.toString()+" +  "+mHeroList[position].attributes.AttributeIntelligenceGain.toString())
@@ -101,6 +110,24 @@ class HeroInfo:  MvpAppCompatActivity(),HeroListView {
 
     override fun presentLoading() {
 
+    }
+    fun rolesToListOfRoles(s: String): MutableList<String>
+    {
+        var editableRoles: String=""
+        var finalRoles: MutableList<String> = mutableListOf()
+        var i=0;
+        while(i <s.length)
+        {
+            if(s[i]==',')
+            {
+                finalRoles.add(editableRoles)
+                editableRoles=""
+            }
+            else
+                editableRoles+=s[i]
+            i++
+        }
+        return finalRoles
     }
 
 
