@@ -49,7 +49,7 @@ class AbilityAdapter: RecyclerView.Adapter<AbilityAdapter.ViewHolder>() {
 
         fun bind(model: Ability) {
             txtTitle.text = model.name
-            Glide.with(itemView).load("https://raw.githubusercontent.com/kriskate/dota-data/master/assets/images/abilities/"+model.tag+".png").into(imgAbility)
+            Glide.with(itemView).load("https://raw.githubusercontent.com/FunnyCPP/Dota-data/develop/assets/images/abilities/"+model.tag+".png").into(imgAbility)
             if(model.cooldown=="")
                 imgCooldown.visibility=View.GONE
             if(model.manacost=="")

@@ -73,7 +73,7 @@ class HeroAdapter(private val listener: (String) -> Unit) : RecyclerView.Adapter
 
         fun bind(model: Hero) {
             txtTitle.text = model.name
-            Glide.with(itemView).load("https://raw.githubusercontent.com/kriskate/dota-data/master/assets/images/heroes/icons/"+model.tag+".png").into(imgAvatar)
+            Glide.with(itemView).load("https://raw.githubusercontent.com/FunnyCPP/Dota-data/develop/assets/images/heroes/icons/"+model.tag+".png").into(imgAvatar)
             var i=0
             var s=""
             val rolesList: List<String>
